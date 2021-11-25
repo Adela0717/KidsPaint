@@ -141,7 +141,7 @@ public class User {
 						 String Server_tcpIp = info[1];
 						 Integer Server_tcpPort = Integer.parseInt(info[2]);
 						 Server_tcpNameL.add(Server_tcpName);
-						 Server_tcpIpL.add(Server_tcpIp);
+						 Server_tcpIpL.add(Server_tcpIp.substring(1));
 						 Server_tcpPortL.add(Server_tcpPort);
 					 }
 					} catch (IOException e) {
