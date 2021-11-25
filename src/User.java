@@ -99,22 +99,22 @@ public class User {
 	}
 	
 	public void getServerInfo(){
-		//1.´´½¨¶ÔÏó
-		 //¹¹ÔìÊý¾Ý±¨Ì×½Ó×Ö²¢½«Æä°ó¶¨µ½±¾µØÖ÷»úÉÏ4002¶Ë¿Ú¡£
+		//1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½×½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ó¶¨µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4002ï¿½Ë¿Ú¡ï¿½
 		 
-		 //2.´ò°ü
+		 //2.ï¿½ï¿½ï¿½
 		 byte[] arr = "request".getBytes();
-		 //ËÄ¸ö²ÎÊý: °üµÄÊý¾Ý °üµÄ³¤¶È Ö÷»ú¶ÔÏó ¶Ë¿ÚºÅ   
+		 //ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¿Úºï¿½   
 		 DatagramPacket packet = null;
 		try {
 			packet = new DatagramPacket
-			  (arr, arr.length,InetAddress.getByName(getLocalIpAddress()) , 4000);
+			  (arr, arr.length,InetAddress.getByName("255.255.255.255") , 4002);
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		  
-		 //3.·¢ËÍ
+		 //3.ï¿½ï¿½ï¿½ï¿½
 		 try {
 			dsocket.send(packet);
 		} catch (IOException e1) {
@@ -122,7 +122,7 @@ public class User {
 			e1.printStackTrace();
 		}
 		 
-		 //4.receive serverInfo from multiple servers£¨listen for 5 second)
+		 //4.receive serverInfo from multiple serversï¿½ï¿½listen for 5 second)
 		 long timer = System.currentTimeMillis();
 		 
 		 Thread thread = new Thread(() ->{
@@ -134,13 +134,16 @@ public class User {
 					 buf = packetr.getData(); 
 					 
 					 System.out.println(new String(buf));
-					 String[]info = new String(buf).split(",");
-					 String Server_tcpName = info[0];
-					 String Server_tcpIp = info[1];
-					 Integer Server_tcpPort = Integer.parseInt(info[2]);
-					 Server_tcpNameL.add(Server_tcpName);
-					 Server_tcpIpL.add(Server_tcpIp);
-					 Server_tcpPortL.add(Server_tcpPort);
+					 String message = new String(buf,0,packetr.getLength());
+					 if(!message.equals("request")) {
+						 String[] info = new String(buf).split(",");
+						 String Server_tcpName = info[0];
+						 String Server_tcpIp = info[1];
+						 Integer Server_tcpPort = Integer.parseInt(info[2]);
+						 Server_tcpNameL.add(Server_tcpName);
+						 Server_tcpIpL.add(Server_tcpIp);
+						 Server_tcpPortL.add(Server_tcpPort);
+					 }
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						continue;
@@ -151,14 +154,14 @@ public class User {
 		 });
 		 thread.start();
 		 
-		 while(System.currentTimeMillis() - timer > 1500) {
+		 while(System.currentTimeMillis() - timer < 1500) {
 			 
 		 }
 		 
 		 
 		 
 		 System.out.print("out");
-		 //4.¹Ø±Õ×ÊÔ´
+		 //4.ï¿½Ø±ï¿½ï¿½ï¿½Ô´
 		 dsocket.close();
 		 
 	}
@@ -237,7 +240,7 @@ public class User {
 		}
 		System.out.println("Successfully connected to server");
 		/*
-		 * Æô¶¯¶ÁÈ¡·þÎñ¶Ë·¢ËÍ¹ýÀ´µÄÏûÏ¢µÄÏß³Ì¡£
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ß³Ì¡ï¿½
 		 */
 		
 		ServerHandler handler = new ServerHandler();

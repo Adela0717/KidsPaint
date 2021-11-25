@@ -28,7 +28,7 @@ public class Server {
 
 	/**
 	 * 将给定的输出流存入共享集合。
-	 * @param out
+	 * @param
 	 */
 	public void setStudioName(String name) {
 		this.studioName = name;
@@ -70,7 +70,7 @@ public class Server {
 	}
 	/**
 	 * 将给定的消息发送给所有客户端。
-	 * @param message
+	 * @param
 	 * @throws IOException 
 	 */
 	public void sendMessage(Message m) throws IOException{
@@ -148,7 +148,7 @@ public class Server {
             public void run() {
             	DatagramSocket serverSocket = null;
 				try {
-					serverSocket = new DatagramSocket(4000);
+					serverSocket = new DatagramSocket(4002);
 				} catch (SocketException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -176,16 +176,10 @@ public class Server {
        		 		
        		 		System.out.println("udp发送IP和端口");
        		 		// 1、创建UDP的Socket，使用DatagramSocket对象
-       		 		DatagramSocket ds = null;
-       		 		try {
-       		 			ds = new DatagramSocket(4001);
-       		 		} catch (SocketException e) {
-       		 			// TODO Auto-generated catch block
-       		 			e.printStackTrace();
-       		 		}
+
        		 
        		 		// 2、将要发送的数据封装到数据包中,数据为studioname, 本地ip和用于建立tcp连接的端口5000
-       		 		String str = studioName + "," + getLocalIpAddress()+",5000,";
+       		 		String str = studioName + "," + "getLocalIpAddress()"+",5000,";
        		 		
        		 		byte[] buf = str.getBytes(); //使用DatagramPacket将数据封装到该对象的包中
        		 		//发送目的地址和ip与接收到的UDP广播地址和ip一致
@@ -194,14 +188,13 @@ public class Server {
        		 
        		 		// 3、通过UDP的Socket服务将数据包发送出去，使用send方法
        		 		try {
-       		 			ds.send(dp);
+       		 			serverSocket.send(dp);
        		 		} catch (IOException e) {
        		 			// TODO Auto-generated catch block
        		 			e.printStackTrace();
        		 		}
        		 
        		 		// 4、关闭Socket服务
-       		 		ds.close();
        		 	}
        		 	//4
        		 	serverSocket.close();
