@@ -77,6 +77,7 @@ public class User {
 			User.ui = UI.getInstance(this, userName, studioName);
 			ui.setData(new int[50][50], 20);
 			UI.addServer(server);
+
 			System.out.println("The server is: " + server);
 			ui.setVisible(true);
 			System.out.print("name:" + studioName); 
@@ -141,6 +142,7 @@ public class User {
 						 String Server_tcpIp = info[1];
 						 Integer Server_tcpPort = Integer.parseInt(info[2]);
 						 Server_tcpNameL.add(Server_tcpName);
+						 System.out.println("Server_tcpIp");
 						 Server_tcpIpL.add(Server_tcpIp.substring(1));
 						 Server_tcpPortL.add(Server_tcpPort);
 					 }

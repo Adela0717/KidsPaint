@@ -179,7 +179,7 @@ public class Server {
 
        		 
        		 		// 2、将要发送的数据封装到数据包中,数据为studioname, 本地ip和用于建立tcp连接的端口5000
-       		 		String str = studioName + "," + "getLocalIpAddress()"+",5000,";
+       		 		String str = studioName + "," + getLocalIpAddress()+",5000,";
        		 		
        		 		byte[] buf = str.getBytes(); //使用DatagramPacket将数据封装到该对象的包中
        		 		//发送目的地址和ip与接收到的UDP广播地址和ip一致
