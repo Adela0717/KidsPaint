@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.FlowLayout;
@@ -40,6 +41,8 @@ public class UI extends JFrame {
 	private JToggleButton tglLoad;
 	private Color backgroundColor;
 	private JToggleButton tglClear;
+	private JToggleButton seeUsers;
+	public static List<String> userL;
 	
 	private static UI instance;
 	private int selectedColor = -543230; 	//golden
@@ -51,6 +54,15 @@ public class UI extends JFrame {
 	static User user;
 	static String studioName;
 	static Server server;
+
+	public void updateUserL(String username){
+		userL.add(username);
+	}
+	public void updateUserL(){
+		this.userL = userL;
+	}
+
+
 	
 //	public Client getClient() {
 //		return client;
@@ -78,6 +90,7 @@ public class UI extends JFrame {
 		UI.user = user;
 		UI.username = username;
 		UI.studioName = studioName;
+		userL = new ArrayList<>();
 		if (instance == null)
 			instance = new UI();
 		
@@ -199,6 +212,10 @@ public class UI extends JFrame {
 		JPanel toolPanel = new JPanel();
 		basePanel.add(toolPanel, BorderLayout.NORTH);
 		toolPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		JPanel userPanel = new JPanel();
+		basePanel.add(userPanel, BorderLayout.SOUTH);
+
 		
 		
 		pnlColorPicker = new JPanel();
@@ -311,6 +328,8 @@ public class UI extends JFrame {
 				
 			}
 		});
+
+
 		
 		
 		//save the sketch data into a local file
@@ -340,6 +359,19 @@ public class UI extends JFrame {
 			}
 			
 		});
+
+		seeUsers = new JToggleButton("See Users");
+		seeUsers.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//String [] options = {"A选项","B选项","C选项","D选项"};
+				updateUserL();
+				String info =  (String)JOptionPane.showInputDialog(null,"Choose a user","See Users",JOptionPane.QUESTION_MESSAGE,null,userL.toArray(), userL.toArray()[0]);
+				System.out.println(info);
+			}
+		});
+
+		userPanel.add(seeUsers);
 		
 		
 		// change the paint mode to PIXEL mode
@@ -418,38 +450,7 @@ public class UI extends JFrame {
 		}
 	}
 	
-	public int[][] readFile(String fileName) {
-		
-		BufferedReader bufferedReader = null;
-		int [][]buffer = new int[50][50];
-		
-		try {
-			InputStreamReader input = new InputStreamReader(new FileInputStream(new File(fileName)));
-			bufferedReader = new BufferedReader(input);
-			String line = null;
-			int i = 0;
-			while((line=bufferedReader.readLine())!=null) {
-				if(null != line){
-					String[] string = line.split("\\t");
-					for(int k = 0; k<string.length; k++) {
-						buffer[i][k] = Integer.valueOf(string[k]);
-						System.out.print(buffer[i][k] + "�� ");
-					}
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println();
-		for(int i = 0; i < 50; i++) {
-			for(int j = 0; j < 50; j++) {
-				System.out.print(buffer[i][j] + "�� ");
-			}
-		}
-		return buffer;
-			
-	}
+
 	
 	/**
 	 * it will be invoked if the user selected the specific color through the color picker

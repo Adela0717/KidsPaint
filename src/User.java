@@ -102,9 +102,10 @@ public class User {
 			this.ui = UI.getInstance(this, userName, studioName);
 			
 			ui.setVisible(true);
+			//ui.updateUserL(userName);
 
 			Message userJoin = new Message(MessageType.MESSAGE);
-			userJoin.setContent(userName + " joins " + studioName);
+			userJoin.setContent("Welcome " + userName + " joins " + studioName);
 			send(userJoin);
 		}
 	}
@@ -286,6 +287,8 @@ public class User {
 						ui.updatePaintPixel(a[0], a[1],a[2]);
 						//System.out.println("This is a diff");
 						break;
+						case LOGIN:
+							ui.updateUserL(m.getContent());
 			
 					default:
 					}

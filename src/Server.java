@@ -15,6 +15,7 @@ public class Server {
 	 * �������пͻ���������ļ��ϡ�
 	 */
 	private List<ObjectOutputStream> allOut;
+
 	private String studioName;
 	
 	static Server instance;
@@ -281,15 +282,18 @@ public class Server {
 
 					if(message.getMt() == MessageType.LOGIN) {
 						username = message.getContent();
+						User.ui.updateUserL(username);
+
 						for(int i = 0;i<data.length;i++) {
 							for(int j = 0;j<data[0].length;j++) {
 								Message dm = new Message(MessageType.DIFFERENTIAL);
 								int[] d = {i,j,data[i][j]};
 								dm.setContentFromDifferential(d);
 								osw.writeObject(dm);
+
 							}
 						}
-						continue;
+						//continue;
 					}
 					
 					//receive diff, update and send to all clients

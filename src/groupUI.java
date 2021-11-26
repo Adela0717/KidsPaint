@@ -118,12 +118,14 @@ import javax.swing.JScrollPane;
 			System.out.print(studios.size());
 			if(studios.size() == 0) {
 				studio_label = new JLabel("Start with creating a new studio");
+				studio_label.setFont(new Font("Monaco", Font.PLAIN, 20));
 				studio_label.setSize(200, 40);
 				studio_label.setLocation(100, 70);
 				panel.add(studio_label);
 				
 			}else {
 				studio_label = new JLabel("Choose a studio");
+				studio_label.setFont(new Font("Monaco", Font.PLAIN, 20));
 				studio_label.setSize(200, 40);
 				studio_label.setLocation(100, 70);
 				panel.add(studio_label);
@@ -142,6 +144,7 @@ import javax.swing.JScrollPane;
 				
 				
 				go_button = new JButton("Join this studio");
+				go_button.setFont(new Font("Monaco", Font.PLAIN, 20));
 				go_button.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) { 
@@ -155,6 +158,7 @@ import javax.swing.JScrollPane;
 			
             //create a studio
 			create_button = new JButton("Create a new one");
+			create_button.setFont(new Font("Monaco", Font.PLAIN, 20));
 			create_button.addActionListener(new ActionListener() {
 
 				@Override
@@ -173,12 +177,13 @@ import javax.swing.JScrollPane;
 			panel.add(colorPanel);
 
 			setColor = new JLabel("choose a color for the background");
-			colorPanel.add(setColor);
 			setColor.setFont(new Font("Monaco", Font.PLAIN, 15));
+			colorPanel.add(setColor);
 
 
 
-			black = new JButton("black");
+
+			black = new JButton("Black");
 			colorPanel.add(black);
 			black.setFont(new Font("Monaco", Font.PLAIN, 15));
 			black.setBackground(new Color(0));
