@@ -84,10 +84,10 @@ public class Server {
 				String recieverName = c[1];
 				String content = c[0] + "(private): " + c[2];
 				int index = User.ui.userL.indexOf(recieverName);
-				ObjectOutputStream outing = allOut.get(index);
+				ObjectOutputStream outing = allOut.get(index+1);
 				outing.writeObject(m);
 			} else {
-			synchronized (allOut) {
+				synchronized (allOut) {
 				for (ObjectOutputStream out : allOut) {
 					out.writeObject(m);
 				}
@@ -321,6 +321,7 @@ public class Server {
 						String senderName = c[0];
 						String recieverName = c[1];
 						String content = c[0] + "(private): " + c[2];
+						updateMessageToUI(content);
 						int index = User.ui.userL.indexOf(recieverName);
 						ObjectOutputStream outing = allOut.get(index);
 						outing.writeObject(message);

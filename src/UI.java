@@ -117,9 +117,7 @@ public class UI extends JFrame {
 		
 		return instance;
 	}
-	public void updateMode(){
-		this.privateMode = privateMode;
-	}
+
 	
 	
 	/**
@@ -388,7 +386,7 @@ public class UI extends JFrame {
 
 		//for both SERVER and USER, select a user for private chat
 
-			if (!privateMode) {
+
 				seeUsers = new JToggleButton("Private Chat With");
 				seeUsers.addActionListener(new ActionListener() {
 					@Override
@@ -403,15 +401,7 @@ public class UI extends JFrame {
 				});
 
 				userPanel.add(seeUsers);
-			} else {
-				seeUsers = new JToggleButton("End Chat");
-				seeUsers.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						privateMode = false;
-					}
-				});
-			}
+
 
 
 

@@ -89,7 +89,7 @@ public class User {
 			User.server.setData(data);
 			ui.setBackgroundColor(chosenBack);
 			UI.addServer(server);
-			ui.updateUserL(userName);
+			//ui.updateUserL(userName);
 
 			System.out.println("The server is: " + server);
 			ui.setVisible(true);
@@ -101,6 +101,7 @@ public class User {
 			System.out.println("this is a client");
 			start();
 			this.ui = UI.getInstance(this, userName, studioName);
+			ui.setBackgroundColor(chosenBack);
 			
 			ui.setVisible(true);
 			//ui.updateUserL(userName);
