@@ -126,7 +126,7 @@ public class User {
 		 DatagramPacket packet = null;
 		try {
 			packet = new DatagramPacket
-			  (arr, arr.length,InetAddress.getByName("255.255.255.255") , 4000);//4002
+			  (arr, arr.length,InetAddress.getByName("255.255.255.255") , 4002);//4002
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -190,6 +190,7 @@ public class User {
 		groupUI gui = new groupUI(Server_tcpNameL);
 		
 		this.gui = gui;
+		gui.setLocationRelativeTo(null);
 		gui.setVisible(true);
 
 		//display gui until receives user interface
@@ -287,8 +288,14 @@ public class User {
 						ui.updatePaintPixel(a[0], a[1],a[2]);
 						//System.out.println("This is a diff");
 						break;
-						case LOGIN:
-							ui.updateUserL(m.getContent());
+					case LOGIN:
+						ui.updateUserL(m.getContent());
+						break;
+					case PRIVATEM:
+						String [] c = m.getContentFromPrivateM();
+						String content = c[0] + "(private): " + c[2];
+						ui.updateText(content);
+
 			
 					default:
 					}

@@ -153,7 +153,7 @@ public class Server {
             public void run() {
             	DatagramSocket serverSocket = null;
 				try {
-					serverSocket = new DatagramSocket(4000);
+					serverSocket = new DatagramSocket(4002);
 				} catch (SocketException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -306,6 +306,18 @@ public class Server {
 					if(message.getMt() == MessageType.MESSAGE) {
 						updateMessageToUI(message.getContent());
 					}
+
+					if(message.getMt() == MessageType.PRIVATEM) {
+						String [] c = message.getContentFromPrivateM();
+						String senderName = c[0];
+						String recieverName = c[1];
+						String content = c[0] + "(private): " + c[2];
+						int index = User.ui.userL.indexOf(recieverName);
+						ObjectOutputStream outing = allOut.get(index);
+						outing.writeObject(message);
+						continue;
+					}
+
 					//�㲥��Ϣ
 					sendMessage(message);
 				}

@@ -36,26 +36,16 @@ public class Message implements java.io.Serializable {
 		content = String.valueOf(a[0])+","+String.valueOf(a[1])+","+String.valueOf(a[2]);
 	}
 	
-	public void setContentFromList(List<String>studios) {
-		content = "";
-		for(String s : studios) {
-			content += s + ",";
-		}
-	}
-	
-	public List<String> getContentFromList() {
-		List<String> studioName = null;
-		String[] a = content.split(",");
-		for(int i = 0; i < a.length; i++) {
-			studioName.add(a[i]);
-		}
-		
-		return studioName;
+
+
+	public String[] getContentFromPrivateM(){
+		String [] c = content.split(",");
+		return c;
 	}
 	
 	
 }
 
 enum MessageType{
-	DIFFERENTIAL,MESSAGE,LOGIN,STUDIONAME
+	DIFFERENTIAL,MESSAGE,LOGIN,PRIVATEM
 }

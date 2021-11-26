@@ -86,7 +86,8 @@ import javax.swing.JScrollPane;
 			this.setTitle("Create or Join a studio");
 			this.setLocationRelativeTo(null);
 			this.setSize(new Dimension(600, 690));
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 			
 			Container container = this.getContentPane();
 			container.setLayout(new BorderLayout());
@@ -187,6 +188,7 @@ import javax.swing.JScrollPane;
 			colorPanel.add(black);
 			black.setFont(new Font("Monaco", Font.PLAIN, 15));
 			black.setBackground(new Color(0));
+			black.setForeground(new Color(255, 255, 255));
 			//black.setBorderPainted(false);
 			black.addActionListener(new ActionListener() {
 				@Override
@@ -208,15 +210,15 @@ import javax.swing.JScrollPane;
 				}
 			});
 
-			honey = new JButton("Honey");
+			honey = new JButton("Turquoise");
 			colorPanel.add(honey);
-			honey.setBackground(new Color(240, 255, 240));
+			honey.setBackground(new Color(175, 238, 238));
 			honey.setFont(new Font("Monaco", Font.PLAIN, 15));
 			//honey.setBorderPainted(true);
 			honey.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					chosenBack = new Color(255, 255, 240);
+					chosenBack = new Color(175, 238, 238);
 				}
 			});
 			

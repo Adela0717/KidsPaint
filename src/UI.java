@@ -43,6 +43,8 @@ public class UI extends JFrame {
 	private JToggleButton tglClear;
 	private JToggleButton seeUsers;
 	public static List<String> userL;
+	public String chatPrivate;
+	public boolean privateMode = false;
 	
 	private static UI instance;
 	private int selectedColor = -543230; 	//golden
@@ -306,10 +308,7 @@ public class UI extends JFrame {
 							System.out.println(user.getIsServer());
 							if(user.getIsServer()) {
 								try {
-									System.out.println("!!!server sends a message");
 									Server.instance.sendMessage(dm);
-									System.out.println("!!!server sends a message.");
-									
 								} catch (IOException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -360,18 +359,24 @@ public class UI extends JFrame {
 			
 		});
 
+
+        //for both SERVER and USER, select a user for private chat
 		seeUsers = new JToggleButton("See Users");
 		seeUsers.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//String [] options = {"A选项","B选项","C选项","D选项"};
 				updateUserL();
-				String info =  (String)JOptionPane.showInputDialog(null,"Choose a user","See Users",JOptionPane.QUESTION_MESSAGE,null,userL.toArray(), userL.toArray()[0]);
-				System.out.println(info);
+				chatPrivate =  (String)JOptionPane.showInputDialog(null,"Choose a user","See Users",JOptionPane.QUESTION_MESSAGE,null,userL.toArray(), userL.toArray()[0]);
+				System.out.println(chatPrivate);
+				if(chatPrivate != null) {
+					privateMode = true;
+				}
 			}
 		});
 
 		userPanel.add(seeUsers);
+
+		//for SERVER, select a user to kick out
 		
 		
 		// change the paint mode to PIXEL mode
@@ -469,8 +474,14 @@ public class UI extends JFrame {
 	 */
 	private void onTextInputted(String text) {
 		chatArea.setText(chatArea.getText() + username + ":" + text + "\n");
-		Message mm = new Message(MessageType.MESSAGE);
-		mm.setContent(username+": "+text);
+		Message mm = null;
+		if(privateMode){
+			mm = new Message(MessageType.PRIVATEM);
+			mm.setContent(username + "," + chatPrivate +  ", "+text);
+		}else {
+			mm = new Message(MessageType.MESSAGE);
+			mm.setContent(username + ": " + text);
+		}
 		if(user.getIsServer()) {
 			try {
 				server.sendMessage(mm);
@@ -484,6 +495,7 @@ public class UI extends JFrame {
 	}
 	
 	public void updateText(String text) {
+
 		if(text.split(":")[0].equals(username))return;
 		
 		chatArea.setText(chatArea.getText() +text + "\n");
