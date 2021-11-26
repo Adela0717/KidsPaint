@@ -79,9 +79,18 @@ public class Server {
 	 * @throws IOException 
 	 */
 	public void sendMessage(Message m) throws IOException{
-		synchronized(allOut) {
-			for(ObjectOutputStream out:allOut){
-				out.writeObject(m);
+		if(m.getMt() == MessageType.PRIVATEM){
+				String [] c = m.getContentFromPrivateM();
+				String recieverName = c[1];
+				String content = c[0] + "(private): " + c[2];
+				int index = User.ui.userL.indexOf(recieverName);
+				ObjectOutputStream outing = allOut.get(index);
+				outing.writeObject(m);
+			} else {
+			synchronized (allOut) {
+				for (ObjectOutputStream out : allOut) {
+					out.writeObject(m);
+				}
 			}
 		}
 		
