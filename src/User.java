@@ -89,6 +89,7 @@ public class User {
 			User.server.setData(data);
 			ui.setBackgroundColor(chosenBack);
 			UI.addServer(server);
+			ui.updateUserL(userName);
 
 			System.out.println("The server is: " + server);
 			ui.setVisible(true);

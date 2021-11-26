@@ -117,6 +117,9 @@ public class UI extends JFrame {
 		
 		return instance;
 	}
+	public void updateMode(){
+		this.privateMode = privateMode;
+	}
 	
 	
 	/**
@@ -124,7 +127,7 @@ public class UI extends JFrame {
 	 */
 	UI() {
 		//����username
-		
+
 		//��ʼ��ͨ��ģ��
 		
 		/*
@@ -141,35 +144,35 @@ public class UI extends JFrame {
 			}
 		}).start();
 		*/
-		
-		setTitle("KidPaint" + "-"+ username + "-" + studioName);
-		
+
+		setTitle("KidPaint" + "-" + username + "-" + studioName);
+
 		JPanel basePanel = new JPanel();
 		getContentPane().add(basePanel, BorderLayout.CENTER);
 		basePanel.setLayout(new BorderLayout(0, 0));
-		
+
 		paintPanel = new JPanel() {
-			
+
 			// refresh the paint panel
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				
+
 				Graphics2D g2 = (Graphics2D) g; // Graphics2D provides the setRenderingHints method
-				
+
 				// enable anti-aliasing
-			    RenderingHints rh = new RenderingHints(
-			             RenderingHints.KEY_ANTIALIASING,
-			             RenderingHints.VALUE_ANTIALIAS_ON);
-			    g2.setRenderingHints(rh);
-			    
-			    // clear the paint panel using black
+				RenderingHints rh = new RenderingHints(
+						RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setRenderingHints(rh);
+
+				// clear the paint panel using black
 				g2.setColor(Color.black);
 				g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-				
+
 				// draw and fill circles with the specific colors stored in the data array
-				for(int x=0; x<data.length; x++) {
-					for (int y=0; y<data[0].length; y++) {
+				for (int x = 0; x < data.length; x++) {
+					for (int y = 0; y < data[0].length; y++) {
 						g2.setColor(new Color(data[x][y]));
 						g2.fillArc(blockSize * x, blockSize * y, blockSize, blockSize, 0, 360);
 						g2.setColor(Color.darkGray);
@@ -178,39 +181,52 @@ public class UI extends JFrame {
 				}
 			}
 		};
-		
+
 		paintPanel.addMouseListener(new MouseListener() {
-			@Override public void mouseClicked(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
-			@Override public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
 
 			// handle the mouse-up event of the paint panel
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (paintMode == PaintMode.Area && e.getX() >= 0 && e.getY() >= 0)
-					paintArea(e.getX()/blockSize, e.getY()/blockSize);
+					paintArea(e.getX() / blockSize, e.getY() / blockSize);
 			}
 		});
-		
+
 		paintPanel.addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (paintMode == PaintMode.Pixel && e.getX() >= 0 && e.getY() >= 0)
-					paintPixel(e.getX()/blockSize,e.getY()/blockSize);
+					paintPixel(e.getX() / blockSize, e.getY() / blockSize);
 			}
 
-			@Override public void mouseMoved(MouseEvent e) {}
-			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
+
 		});
-		
+
 		paintPanel.setPreferredSize(new Dimension(data.length * blockSize, data[0].length * blockSize));
-		
+
 		JScrollPane scrollPaneLeft = new JScrollPane(paintPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		basePanel.add(scrollPaneLeft, BorderLayout.CENTER);
-		
+
 		JPanel toolPanel = new JPanel();
 		basePanel.add(toolPanel, BorderLayout.NORTH);
 		toolPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -218,8 +234,7 @@ public class UI extends JFrame {
 		JPanel userPanel = new JPanel();
 		basePanel.add(userPanel, BorderLayout.SOUTH);
 
-		
-		
+
 		pnlColorPicker = new JPanel();
 		pnlColorPicker.setPreferredSize(new Dimension(24, 24));
 		pnlColorPicker.setBackground(new Color(selectedColor));
@@ -227,10 +242,21 @@ public class UI extends JFrame {
 
 		// show the color picker
 		pnlColorPicker.addMouseListener(new MouseListener() {
-			@Override public void mouseClicked(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
-			@Override public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -240,15 +266,15 @@ public class UI extends JFrame {
 				picker.setLocation(location);
 				picker.setVisible(true);
 			}
-			
+
 		});
-		
+
 		toolPanel.add(pnlColorPicker);
-		
+
 		tglPen = new JToggleButton("Pen");
 		tglPen.setSelected(true);
 		toolPanel.add(tglPen);
-		
+
 		tglBucket = new JToggleButton("Bucket");
 		toolPanel.add(tglBucket);
 
@@ -257,124 +283,135 @@ public class UI extends JFrame {
 		tglClear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(int i = 0; i < 50; i++){
-					for(int j = 0 ; j < 50; j++){
+				for (int i = 0; i < 50; i++) {
+					for (int j = 0; j < 50; j++) {
 						updatePaintPixel(i, j, backgroundColor.getRGB()); //backgroundColor.getRGB()
 					}
 				}
 			}
 		});
-		
+
 		//add the save button
 		tglSave = new JToggleButton("Save");
 		toolPanel.add(tglSave);
-		
+
 		tglLoad = new JToggleButton("Load");
 		toolPanel.add(tglLoad);
-		
+
 		//load the sketch data from a local file
-		tglLoad.addActionListener(new ActionListener(){
+		tglLoad.addActionListener(new ActionListener() {
 			@Override
-			
-			public void actionPerformed(ActionEvent arg0){
-				
-				String fileName = JOptionPane.showInputDialog(null,"File name:");
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				String fileName = JOptionPane.showInputDialog(null, "File name:");
 				BufferedReader bufferedReader = null;
-				int [][]buffer = new int[50][50];
-				
+				int[][] buffer = new int[50][50];
+
 				try {
 					InputStreamReader input = new InputStreamReader(new FileInputStream(new File(fileName)));
 					bufferedReader = new BufferedReader(input);
 					String line = null;
 					int i = 0;
-					while((line=bufferedReader.readLine())!=null) {
-						if(null != line){
+					while ((line = bufferedReader.readLine()) != null) {
+						if (null != line) {
 							String[] string = line.split("\\t");
-							for(int k = 0; k<string.length; k++) {
+							for (int k = 0; k < string.length; k++) {
 								buffer[i][k] = Integer.valueOf(string[k]);
 								System.out.print(buffer[i][k] + "�� ");
-								
+
 							}
 							i++;
 						}
 					}
 					setData(buffer, blockSize);
-					
-					for(int m = 0; m < 50; m++) {
-						for(int n=0; n < 50; n++ ) {
+
+					for (int m = 0; m < 50; m++) {
+						for (int n = 0; n < 50; n++) {
 							Message dm = new Message(MessageType.DIFFERENTIAL);
 							int[] d = {m, n, buffer[m][n]};
 							dm.setContentFromDifferential(d);
 							System.out.println(user.getIsServer());
-							if(user.getIsServer()) {
+							if (user.getIsServer()) {
 								try {
 									Server.instance.sendMessage(dm);
 								} catch (IOException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-							}else {
-								user.send(dm); 
+							} else {
+								user.send(dm);
 							}
 						}
 					}
-				
-					
+
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 
 
-		
-		
 		//save the sketch data into a local file
 		tglSave.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				String fileName = JOptionPane.showInputDialog(null,"Save as:");
+				String fileName = JOptionPane.showInputDialog(null, "Save as:");
 				try {
 					FileWriter writer = new FileWriter(fileName);
-					for(int i = 0 ; i < 50; i++) {
-						for(int j = 0; j < 50; j++) {
+					for (int i = 0; i < 50; i++) {
+						for (int j = 0; j < 50; j++) {
 							String content = String.valueOf(data[i][j] + "");
 							writer.write(content + "\t");
 						}
 						writer.write("\r\n");
 					}
-					
+
 					writer.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			
+
+
 			}
-			
+
 		});
 
 
-        //for both SERVER and USER, select a user for private chat
-		seeUsers = new JToggleButton("See Users");
-		seeUsers.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				updateUserL();
-				chatPrivate =  (String)JOptionPane.showInputDialog(null,"Choose a user","See Users",JOptionPane.QUESTION_MESSAGE,null,userL.toArray(), userL.toArray()[0]);
-				System.out.println(chatPrivate);
-				if(chatPrivate != null) {
-					privateMode = true;
-				}
-			}
-		});
+		//for both SERVER and USER, select a user for private chat
 
-		userPanel.add(seeUsers);
+			if (!privateMode) {
+				seeUsers = new JToggleButton("Private Chat With");
+				seeUsers.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						updateUserL();
+						chatPrivate = (String) JOptionPane.showInputDialog(null, "Choose a user", "See Users", JOptionPane.QUESTION_MESSAGE, null, userL.toArray(), userL.toArray()[0]);
+						System.out.println(chatPrivate);
+						if (chatPrivate != null) {
+							privateMode = true;
+						}
+					}
+				});
+
+				userPanel.add(seeUsers);
+			} else {
+				seeUsers = new JToggleButton("End Chat");
+				seeUsers.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						privateMode = false;
+					}
+				});
+			}
+
+
 
 		//for SERVER, select a user to kick out
 		
