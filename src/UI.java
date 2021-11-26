@@ -38,12 +38,14 @@ public class UI extends JFrame {
 	private JToggleButton tglBucket;
 	private JToggleButton tglSave;
 	private JToggleButton tglLoad;
+	private Color backgroundColor;
+	private JToggleButton tglClear;
 	
 	private static UI instance;
 	private int selectedColor = -543230; 	//golden
 	
 	int[][] data = new int[50][50];			// pixel color data array
-	int blockSize = 16;
+	int blockSize = 20;
 	PaintMode paintMode = PaintMode.Pixel;
 	static String username;
 	static User user;
@@ -81,6 +83,12 @@ public class UI extends JFrame {
 		
 		return instance;
 	}
+
+	public void setBackgroundColor(Color c){
+		this.backgroundColor=c;
+	}
+
+
 	
 	public static void addServer(Server server) {
 		UI.server = server;
@@ -100,9 +108,9 @@ public class UI extends JFrame {
 	 * private constructor. To create an instance of UI, call UI.getInstance() instead.
 	 */
 	UI() {
-		//ÉèÖÃusername
+		//ï¿½ï¿½ï¿½ï¿½username
 		
-		//³õÊ¼»¯Í¨ÐÅÄ£¿é
+		//ï¿½ï¿½Ê¼ï¿½ï¿½Í¨ï¿½ï¿½Ä£ï¿½ï¿½
 		
 		/*
 		new Thread(new Runnable() {
@@ -113,7 +121,7 @@ public class UI extends JFrame {
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					System.out.println("¿Í»§¶ËÍøÂçÁ¬½ÓÆô¶¯Ê§°Ü");
+					System.out.println("ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 				}
 			}
 		}).start();
@@ -224,6 +232,19 @@ public class UI extends JFrame {
 		
 		tglBucket = new JToggleButton("Bucket");
 		toolPanel.add(tglBucket);
+
+		tglClear = new JToggleButton("Clear");
+		toolPanel.add(tglClear);
+		tglClear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < 50; i++){
+					for(int j = 0 ; j < 50; j++){
+						updatePaintPixel(i, j, backgroundColor.getRGB()); //backgroundColor.getRGB()
+					}
+				}
+			}
+		});
 		
 		//add the save button
 		tglSave = new JToggleButton("Save");
@@ -252,7 +273,7 @@ public class UI extends JFrame {
 							String[] string = line.split("\\t");
 							for(int k = 0; k<string.length; k++) {
 								buffer[i][k] = Integer.valueOf(string[k]);
-								System.out.print(buffer[i][k] + "£¬ ");
+								System.out.print(buffer[i][k] + "ï¿½ï¿½ ");
 								
 							}
 							i++;
@@ -412,7 +433,7 @@ public class UI extends JFrame {
 					String[] string = line.split("\\t");
 					for(int k = 0; k<string.length; k++) {
 						buffer[i][k] = Integer.valueOf(string[k]);
-						System.out.print(buffer[i][k] + "£¬ ");
+						System.out.print(buffer[i][k] + "ï¿½ï¿½ ");
 					}
 				}
 			}
@@ -423,7 +444,7 @@ public class UI extends JFrame {
 		System.out.println();
 		for(int i = 0; i < 50; i++) {
 			for(int j = 0; j < 50; j++) {
-				System.out.print(buffer[i][j] + "£º ");
+				System.out.print(buffer[i][j] + "ï¿½ï¿½ ");
 			}
 		}
 		return buffer;

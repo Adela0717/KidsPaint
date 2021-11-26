@@ -12,7 +12,7 @@ public class Server {
 	int[][] data = new int[50][50];
 	private ServerSocket server;
 	/*
-	 * ±£´æËùÓÐ¿Í»§¶ËÊä³öÁ÷µÄ¼¯ºÏ¡£
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï¡ï¿½
 	 */
 	private List<ObjectOutputStream> allOut;
 	private String studioName;
@@ -23,11 +23,11 @@ public class Server {
 	
 	
 	/*
-	 * ÓÃÓÚ³õÊ¼»¯·þÎñ¶Ë
+	 * ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 
 	/**
-	 * ½«¸ø¶¨µÄÊä³öÁ÷´æÈë¹²Ïí¼¯ºÏ¡£
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¹²ï¿½ï¿½ï¿½Ï¡ï¿½
 	 * @param
 	 */
 	public void setStudioName(String name) {
@@ -44,6 +44,10 @@ public class Server {
 			}
 		return instance;
 	}
+
+	public void setData(int[][] data){
+		this.data = data;
+	}
 	
 	
 	
@@ -59,7 +63,7 @@ public class Server {
 		}
 	}
 	/**
-	 * ½«¸ø¶¨µÄÊä³öÁ÷´Ó¹²Ïí¼¯ºÏÖÐÉ¾³ý¡£
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
 	 * @param out
 	 */
 	private void removeOut(ObjectOutputStream out){
@@ -69,7 +73,7 @@ public class Server {
 			
 	}
 	/**
-	 * ½«¸ø¶¨µÄÏûÏ¢·¢ËÍ¸øËùÓÐ¿Í»§¶Ë¡£
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ð¿Í»ï¿½ï¿½Ë¡ï¿½
 	 * @param
 	 * @throws IOException 
 	 */
@@ -83,8 +87,8 @@ public class Server {
 		System.out.println("sent:" + m.getContent());
 	}
 	
-	//¸üÐÂ»æ»­ÏñËØµã
-	private void updatePaintPixel(int col, int row, int color) {
+	//ï¿½ï¿½ï¿½Â»æ»­ï¿½ï¿½ï¿½Øµï¿½
+	public void updatePaintPixel(int col, int row, int color) {
 		if (col >= data.length || row >= data[0].length) return;
 		data[col][row] = color;
 	}
@@ -101,12 +105,12 @@ public class Server {
 		setStudioName(studioName);
 		listenUdpMessage();
 		/*
-		 * ³õÊ¼»¯µÄÍ¬Ê±ÉêÇë·þÎñ¶Ë¿Ú¡£
+		 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Ú¡ï¿½
 		 */
 		server = new ServerSocket(5000);
 		allOut = new ArrayList<ObjectOutputStream>();
 		/*
-		 * ·þÎñ¶Ë¿ªÊ¼¹¤×÷µÄ·½·¨
+		 * ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 		 */
 		
 		//if a client gets the IP and Port of server and decides to send request to build TCP connection
@@ -117,10 +121,10 @@ public class Server {
 	public void serve() {
 		try{
 			/*
-			 * ServerSocketµÄaccept·½·¨ÊÇÒ»¸ö×èÈû·½·¨
-			 * ×÷ÓÃÊÇ¼àÌý·þÎñ¶Ë¿Ú£¬Ö±µ½Ò»¸ö¿Í»§¶ËÁ¬½Ó²¢´´½¨Ò»
-			 * ¸öSocket£¬Ê¹ÓÃ¸ÃSocket¼´¿ÉÓë¸ÕÁ¬½ÓµÄ¿Í»§
-			 * ¶Ë½øÐÐ½»»¥ÓëÊý¾Ý´«Êä¡£
+			 * ServerSocketï¿½ï¿½acceptï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			 * ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Ú£ï¿½Ö±ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½Ò»
+			 * ï¿½ï¿½Socketï¿½ï¿½Ê¹ï¿½Ã¸ï¿½Socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÓµÄ¿Í»ï¿½
+			 * ï¿½Ë½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ä¡£
 			 */
 			while(true){
 				System.out.println("Waiting for connection from a client...");
@@ -129,7 +133,7 @@ public class Server {
 				int newport = socket.getPort();
 				System.out.println("A connection from"+newip+":"+newport+"is succesffuly connected by TCP");
 				/*
-				 * Æô¶¯Ò»¸öÏß³Ì£¬À´Íê³ÉÓë¸Ã¿Í»§¶ËµÄ½»»¥¡£
+				 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß³Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Í»ï¿½ï¿½ËµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½
 				 */
 				ClientHandler handler = new ClientHandler(socket);
 				Thread t = new Thread(handler);
@@ -148,7 +152,7 @@ public class Server {
             public void run() {
             	DatagramSocket serverSocket = null;
 				try {
-					serverSocket = new DatagramSocket(4002);
+					serverSocket = new DatagramSocket(4000);
 				} catch (SocketException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -160,7 +164,7 @@ public class Server {
        		 	//send the list of studios to the clients
        		 	
        		  
-       		 	//3 µ±³ÌÐòÔËÐÐÆðÀ´Ö®ºó,receive·½·¨»áÒ»Ö±´¦ÓÚ¼àÌý×´Ì¬
+       		 	//3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½,receiveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö±ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½×´Ì¬
        		 
        		 	while(runFlag) {
        		 		try {
@@ -169,24 +173,24 @@ public class Server {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-       			//´Ó°üÖÐ½«Êý¾ÝÈ¡³ö
+       			//ï¿½Ó°ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½
        		 		byte[] arr1 = packet.getData();
        		 		System.out.println(new String(arr1));
-       		 	//»Ø¸´IPºÍport
+       		 	//ï¿½Ø¸ï¿½IPï¿½ï¿½port
        		 		
-       		 		System.out.println("udp·¢ËÍIPºÍ¶Ë¿Ú");
-       		 		// 1¡¢´´½¨UDPµÄSocket£¬Ê¹ÓÃDatagramSocket¶ÔÏó
+       		 		System.out.println("udpï¿½ï¿½ï¿½ï¿½IPï¿½Í¶Ë¿ï¿½");
+       		 		// 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UDPï¿½ï¿½Socketï¿½ï¿½Ê¹ï¿½ï¿½DatagramSocketï¿½ï¿½ï¿½ï¿½
 
        		 
-       		 		// 2¡¢½«Òª·¢ËÍµÄÊý¾Ý·â×°µ½Êý¾Ý°üÖÐ,Êý¾ÝÎªstudioname, ±¾µØipºÍÓÃÓÚ½¨Á¢tcpÁ¬½ÓµÄ¶Ë¿Ú5000
+       		 		// 2ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½Ý·ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Îªstudioname, ï¿½ï¿½ï¿½ï¿½ipï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½tcpï¿½ï¿½ï¿½ÓµÄ¶Ë¿ï¿½5000
        		 		String str = studioName + "," + getLocalIpAddress()+",5000,";
        		 		
-       		 		byte[] buf = str.getBytes(); //Ê¹ÓÃDatagramPacket½«Êý¾Ý·â×°µ½¸Ã¶ÔÏóµÄ°üÖÐ
-       		 		//·¢ËÍÄ¿µÄµØÖ·ºÍipÓë½ÓÊÕµ½µÄUDP¹ã²¥µØÖ·ºÍipÒ»ÖÂ
+       		 		byte[] buf = str.getBytes(); //Ê¹ï¿½ï¿½DatagramPacketï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½×°ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½
+       		 		//ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½Ö·ï¿½ï¿½ipï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½UDPï¿½ã²¥ï¿½ï¿½Ö·ï¿½ï¿½ipÒ»ï¿½ï¿½
    
        		 		DatagramPacket dp = new DatagramPacket(buf, buf.length, packet.getAddress(),packet.getPort());
        		 
-       		 		// 3¡¢Í¨¹ýUDPµÄSocket·þÎñ½«Êý¾Ý°ü·¢ËÍ³öÈ¥£¬Ê¹ÓÃsend·½·¨
+       		 		// 3ï¿½ï¿½Í¨ï¿½ï¿½UDPï¿½ï¿½Socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½Í³ï¿½È¥ï¿½ï¿½Ê¹ï¿½ï¿½sendï¿½ï¿½ï¿½ï¿½
        		 		try {
        		 			serverSocket.send(dp);
        		 		} catch (IOException e) {
@@ -194,7 +198,7 @@ public class Server {
        		 			e.printStackTrace();
        		 		}
        		 
-       		 		// 4¡¢¹Ø±ÕSocket·þÎñ
+       		 		// 4ï¿½ï¿½ï¿½Ø±ï¿½Socketï¿½ï¿½ï¿½ï¿½
        		 	}
        		 	//4
        		 	serverSocket.close();
@@ -227,28 +231,28 @@ public class Server {
 	
 		
 		/**
-		 * ¸ÃÏß³Ì¸ºÔð´¦ÀíÒ»¸ö¿Í»§¶Ë½»»¥¡£
+		 * ï¿½ï¿½ï¿½ß³Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë½ï¿½ï¿½ï¿½ï¿½ï¿½
 		 * @author kaixu
 		 *
 		 */
 	class ClientHandler implements Runnable{
 		/*
-		 * ¸ÃÏß³Ì´¦Àí¿Í»§¶ËµÄSocket
+		 * ï¿½ï¿½ï¿½ß³Ì´ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ëµï¿½Socket
 		 */
 		private Socket socket;
 		
-		//¿Í»§¶ËµÄµØÖ·ÐÅÏ¢
+		//ï¿½Í»ï¿½ï¿½ËµÄµï¿½Ö·ï¿½ï¿½Ï¢
 		private String host;
-		//¸ÃÓÃ»§µÄêÇ³Æ
+		//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ç³ï¿½
 		private String username;
 		
 		public ClientHandler(Socket socket){
 			this.socket = socket;
 			/*
-			 * Í¨¹ýSocket¿ÉÒÔ»ñÈ¡Ô¶¶Ë¼ÆËã»úµÄµØÖ·ÐÅÏ¢¡£
+			 * Í¨ï¿½ï¿½Socketï¿½ï¿½ï¿½Ô»ï¿½È¡Ô¶ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·ï¿½ï¿½Ï¢ï¿½ï¿½
 			 */
 			InetAddress address = socket.getInetAddress();
-			//½âÎö»ñÈ¡µÄIPµØÖ·ÐÅÏ¢
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½IPï¿½ï¿½Ö·ï¿½ï¿½Ï¢
 			host = address.getHostAddress();
 		}
 		
@@ -258,12 +262,12 @@ public class Server {
 				InputStream in = socket.getInputStream();
 				ObjectInputStream isr = new ObjectInputStream(in);
 				/*
-				 * Í¨¹ýSocket´´½¨Êä³öÁ÷ÓÃÓÚ½«ÏûÏ¢·¢ËÍ¸ø¿Í»§¶Ë¡£
+				 * Í¨ï¿½ï¿½Socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í»ï¿½ï¿½Ë¡ï¿½
 				 */
 				OutputStream out = socket.getOutputStream();
 				osw = new ObjectOutputStream(out);
 				/*
-				 * ½«¸Ã¿Í»§¶ËµÄÊä³öÁ÷´æÈëµ½¹²Ïí¼¯ºÏÖÐ¡£
+				 * ï¿½ï¿½ï¿½Ã¿Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½
 				 */
 				addOut(osw);
 //				Message dmm = new Message(MessageType.STUDIONAME);
@@ -298,16 +302,16 @@ public class Server {
 					if(message.getMt() == MessageType.MESSAGE) {
 						updateMessageToUI(message.getContent());
 					}
-					//¹ã²¥ÏûÏ¢
+					//ï¿½ã²¥ï¿½ï¿½Ï¢
 					sendMessage(message);
 				}
 			} catch (Exception e) {
 				
 			} finally {
 				/*
-				 * ´¦Àíµ±Ç°¿Í»§¶Ë¶Ï¿ªºóµÄÂß¼­¡£
+				 * ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Í»ï¿½ï¿½Ë¶Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
 				 */
-				//½«¸Ã¿Í»§¶ËµÄÊä³öÁ÷´Ó¹²Ïí¼¯ºÏÖÐÉ¾³ý¡£
+				//ï¿½ï¿½ï¿½Ã¿Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
 				removeOut(osw);
 				System.out.println(host+"drops connection");
 				try {

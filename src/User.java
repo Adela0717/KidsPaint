@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -36,6 +37,7 @@ public class User {
 	boolean isListen = true;
 	DatagramSocket dsocket = null;
 	static User instance;
+	Color chosenBack = new Color(0, 0, 0);
 	
 	//some attributes for server
 	
@@ -75,7 +77,17 @@ public class User {
 			User.server = Server.getInstance(studioName);	
 			
 			User.ui = UI.getInstance(this, userName, studioName);
-			ui.setData(new int[50][50], 20);
+
+			int[][]data = new int[50][50];
+			for(int i = 0; i < 50; i++){
+				for(int j = 0; j < 50; j++){
+					data[i][j] = chosenBack.getRGB();
+					server.updatePaintPixel(i, j, chosenBack.getRGB());
+				}
+			}
+			ui.setData(data, 20);
+			User.server.setData(data);
+			ui.setBackgroundColor(chosenBack);
 			UI.addServer(server);
 
 			System.out.println("The server is: " + server);
@@ -90,6 +102,10 @@ public class User {
 			this.ui = UI.getInstance(this, userName, studioName);
 			
 			ui.setVisible(true);
+
+			Message userJoin = new Message(MessageType.MESSAGE);
+			userJoin.setContent(userName + " joins " + studioName);
+			send(userJoin);
 		}
 	}
 	
@@ -109,7 +125,7 @@ public class User {
 		 DatagramPacket packet = null;
 		try {
 			packet = new DatagramPacket
-			  (arr, arr.length,InetAddress.getByName("255.255.255.255") , 4002);
+			  (arr, arr.length,InetAddress.getByName("255.255.255.255") , 4000);//4002
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -143,7 +159,7 @@ public class User {
 						 Integer Server_tcpPort = Integer.parseInt(info[2]);
 						 Server_tcpNameL.add(Server_tcpName);
 						 System.out.println("Server_tcpIp");
-						 Server_tcpIpL.add(Server_tcpIp.substring(1));
+						 Server_tcpIpL.add(Server_tcpIp);
 						 Server_tcpPortL.add(Server_tcpPort);
 					 }
 					} catch (IOException e) {
@@ -187,6 +203,8 @@ public class User {
 		
 		this.isServer = gui.getDoCreate();
 		this.studioName = gui.getChosenStudio();
+		this.chosenBack = gui.getBackColor();
+		System.out.println(chosenBack);
 		gui.setVisible(false);
 				
 	}
