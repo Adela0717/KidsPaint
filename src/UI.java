@@ -277,19 +277,21 @@ public class UI extends JFrame {
 
 		tglBucket = new JToggleButton("Bucket");
 		toolPanel.add(tglBucket);
+		if(user.getIsServer()) {
 
-		tglClear = new JToggleButton("Clear");
-		toolPanel.add(tglClear);
-		tglClear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (int i = 0; i < 50; i++) {
-					for (int j = 0; j < 50; j++) {
-						updatePaintPixel(i, j, backgroundColor.getRGB()); //backgroundColor.getRGB()
+			tglClear = new JToggleButton("Clear");
+			toolPanel.add(tglClear);
+			tglClear.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for (int i = 0; i < 50; i++) {
+						for (int j = 0; j < 50; j++) {
+							updatePaintPixel(i, j, backgroundColor.getRGB()); //backgroundColor.getRGB()
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 
 		//add the save button
 		tglSave = new JToggleButton("Save");
